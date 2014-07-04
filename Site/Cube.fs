@@ -5,27 +5,26 @@ open IntelliFactory.WebSharper
 [<JavaScript>]
 module Cube =
     open IntelliFactory.WebSharper.BabylonJs
-    open IntelliFactory.WebSharper.JQuery
 
-    let Main a =
-        let (engine, scene) = InitializeSample a
+    let Main container =
+        let (engine, scene) = initializeSample container 640 360
         let light  = BABYLON.PointLight.Create(
-                         "Lorem",
-                         BABYLON.Vector3.Create(10., 10., -10.),
+                         "Sun",
+                         BABYLON.Vector3.Create(0., 10., -15.),
                          scene
                      )
-        let cube   = BABYLON.Mesh.CreateBox("Ipsum", 10., scene)
+        let cube   = BABYLON.Mesh.CreateBox("Cube", 10., scene)
         let camera = BABYLON.FreeCamera.Create(
-                         "Dolor",
+                         "Camera",
                          BABYLON.Vector3.Create(0., 0., -25.),
                          scene
                      )
 
         scene.activeCamera.attachControl (As canvas)
 
-        engine.runRenderLoop (As (fun () ->
+        engine.runRenderLoop (fun () ->
             scene.render()
-        ))
+        )
 
     let Sample =
         Samples.Build()

@@ -5,35 +5,32 @@ open IntelliFactory.WebSharper
 [<JavaScript>]
 module AnimatedTorus =
     open IntelliFactory.WebSharper.BabylonJs
-    open IntelliFactory.WebSharper.JQuery
-
-    let Main (a : Dom.Element) =
-        let (engine, scene) = InitializeSample a
+    
+    let Main container =
+        let (engine, scene) = initializeSample container 640 360
         let light  = BABYLON.PointLight.Create(
-                         "Lorem",
-                         BABYLON.Vector3.Create(0., 0., -10.),
+                         "Sun",
+                         BABYLON.Vector3.Create(0., 0., -15.),
                          scene
                      )
-        let torus = BABYLON.Mesh.CreateTorus("Ipsum", 10., 1., 50., scene, true)
+        let torus = BABYLON.Mesh.CreateTorus("Torus", 10., 1., 50., scene, true)
         let camera = BABYLON.ArcRotateCamera.Create(
-                         "Dolor",
-                         0.,
-                         0.,
-                         0.,
+                         "Camera",
+                         0., 0., 0.,
                          BABYLON.Vector3.Zero(),
                          scene
                      )
 
         camera.setPosition(
-            BABYLON.Vector3.Create(0., 5., -20.)
+            BABYLON.Vector3.Create(0., 0., -25.)
         )
         scene.activeCamera.attachControl (As canvas)
 
-        engine.runRenderLoop (As (fun () ->
-            scene.render() |> ignore
+        engine.runRenderLoop (fun () ->
+            scene.render()
 
             torus.rotation.x <- torus.rotation.x + (EcmaScript.Math.PI / -180.)
-        ))
+        )
 
     let Sample =
         Samples.Build()

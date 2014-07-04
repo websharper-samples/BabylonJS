@@ -1,43 +1,44 @@
 ﻿namespace Site
 
 open IntelliFactory.WebSharper
-open IntelliFactory.WebSharper.JQuery
+open IntelliFactory.WebSharper.Dom
 open IntelliFactory.WebSharper.BabylonJs
 
 [<JavaScript; AutoOpen>]
 module GlobalReferences =
-    let canvas =
-        (JQuery.Of "<canvas height=\"360\" width=\"640\"></canvas>").Get 0 :?> Dom.Element
+    
+    let canvas = Document.Current.CreateElement "canvas"
 
-    let engine : BABYLON.Engine.T option ref = ref None
+    let private engine : BABYLON.Engine.T option ref = ref None
+    let scene : BABYLON.Scene.T option ref           = ref None
 
-    let resetEngine () =
-        match !engine with
-        | Some engine ->
-            engine.stopRenderLoop()
-        | _ -> 
-            ()
+    let (!!) (a : 'a option ref) = (!a).Value
 
-        engine := Some (BABYLON.Engine.Create(
-                           As canvas,
-                           true
-                       ))
+    let initializeSample (container : Dom.Element) (width : int) (height : int) =
+        canvas.SetAttribute("width" , string width)
+        canvas.SetAttribute("height", string height)
 
-    let scene : BABYLON.Scene.T option ref = ref None
-
-    let resetScene () =
-        match !scene with
-        | Some scene ->
-            scene.activeCamera.detachControl (As canvas)
-        | _ -> 
-            ()
-
-        scene := Some (BABYLON.Scene.Create (!engine).Value)
-
-    let InitializeSample (container : Dom.Element) =
-        (JQuery.Of container).Append(canvas).Ignore
+        container.AppendChild canvas |> ignore
         
-        resetEngine()
-        resetScene()
+        !engine
+        |> Option.iter (fun engine ->
+            engine.stopRenderLoop()
+        )
 
-        ((!engine).Value, (!scene).Value)
+        engine := Some
+                  <| BABYLON.Engine.Create(
+                         As canvas,
+                         true
+                  )
+        
+        !scene
+        |> Option.iter (fun scene ->
+            scene.activeCamera.detachControl (As canvas)
+        )
+
+        scene := Some
+                 <| BABYLON.Scene.Create !!engine
+
+        (!!engine, !!scene)
+
+    let (!+) a = Samples.Set.Singleton a
