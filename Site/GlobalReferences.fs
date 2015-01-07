@@ -1,13 +1,13 @@
 ﻿namespace Site
 
 open IntelliFactory.WebSharper
-open IntelliFactory.WebSharper.Dom
+open IntelliFactory.WebSharper.JavaScript
 open IntelliFactory.WebSharper.BabylonJs
 
 [<JavaScript; AutoOpen>]
 module GlobalReferences =
     
-    let canvas = Document.Current.CreateElement "canvas"
+    let canvas = JS.Document.CreateElement "canvas"
 
     let private engine : BABYLON.Engine.T option ref = ref None
     let scene : BABYLON.Scene.T option ref           = ref None

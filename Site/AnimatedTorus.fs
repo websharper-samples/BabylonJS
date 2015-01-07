@@ -1,6 +1,7 @@
 ﻿namespace Site
  
 open IntelliFactory.WebSharper
+open IntelliFactory.WebSharper.JavaScript
 
 [<JavaScript>]
 module AnimatedTorus =
@@ -29,7 +30,7 @@ module AnimatedTorus =
         engine.runRenderLoop (fun () ->
             scene.render()
 
-            torus.rotation.x <- torus.rotation.x + (EcmaScript.Math.PI / -180.)
+            torus.rotation.x <- torus.rotation.x + (Math.PI / -180.)
         )
 
     let Sample =

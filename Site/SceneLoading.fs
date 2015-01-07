@@ -4,7 +4,7 @@ open IntelliFactory.WebSharper
 
 [<JavaScript>]
 module SceneLoading =
-    open IntelliFactory.WebSharper.Dom
+    open IntelliFactory.WebSharper.JavaScript
     open IntelliFactory.WebSharper.BabylonJs
 
     let Main container =
