@@ -1,5 +1,0 @@
-*.suo
-packages/*
-Site/bin/*
-Site/Content/*
-Site/obj/*
