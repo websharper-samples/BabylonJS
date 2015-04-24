@@ -1,11 +1,11 @@
 ﻿namespace Site
  
-open IntelliFactory.WebSharper
+open WebSharper
 
 [<JavaScript>]
 module SceneLoading =
-    open IntelliFactory.WebSharper.JavaScript
-    open IntelliFactory.WebSharper.BabylonJs
+    open WebSharper.JavaScript
+    open WebSharper.BabylonJs
 
     let Main container =
         let (engine, _) = initializeSample container 640 360

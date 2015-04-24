@@ -1,8 +1,8 @@
 ﻿namespace Site
 
-open IntelliFactory.WebSharper
-open IntelliFactory.WebSharper.JavaScript
-open IntelliFactory.WebSharper.BabylonJs
+open WebSharper
+open WebSharper.JavaScript
+open WebSharper.BabylonJs
 
 [<JavaScript; AutoOpen>]
 module GlobalReferences =

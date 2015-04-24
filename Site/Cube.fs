@@ -1,11 +1,11 @@
 ﻿namespace Site
  
-open IntelliFactory.WebSharper
-open IntelliFactory.WebSharper.JavaScript
+open WebSharper
+open WebSharper.JavaScript
 
 [<JavaScript>]
 module Cube =
-    open IntelliFactory.WebSharper.BabylonJs
+    open WebSharper.BabylonJs
 
     let Main container =
         let (engine, scene) = initializeSample container 640 360
