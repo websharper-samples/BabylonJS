@@ -1,4 +1,4 @@
-Babylon.js [![Build status](https://ci.appveyor.com/api/projects/status/kuo92ltrm1o31sak?svg=true)](https://ci.appveyor.com/project/Jand42/websharper-babylonjs)
+Babylon.js [![Build status](https://ci.appveyor.com/api/projects/status/l1eycyvuh6r7bofe?svg=true)](https://ci.appveyor.com/project/IntelliFactory/websharper-babylonjs-samples)
 ----------
 
 [Samples][samp] for [WebSharper][ws] bindings to [Babylon.js][bjs].
