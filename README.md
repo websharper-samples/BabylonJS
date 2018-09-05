@@ -3,6 +3,6 @@ Babylon.js [![Build status](https://ci.appveyor.com/api/projects/status/l1eycyvu
 
 [Samples][samp] for [WebSharper][ws] bindings to [Babylon.js][bjs].
 
-[samp]: https://intellifactory.github.io/websharper.babylonjs.samples
+[samp]: https://websharper-samples.github.io/BabylonJS
 [ws]: https://websharper.com
 [bjs]: https://babylonjs.com
