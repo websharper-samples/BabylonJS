@@ -1,0 +1,11 @@
+{
+  "name": "babylonjs",
+  "version": "1.0.0",
+  "private": true,
+  "devDependencies": {
+    "esbuild": "^0.19.9"
+  },
+  "dependencies": {
+    "@babylonjs/core": "^9.36.0"
+  }
+}

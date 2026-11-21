@@ -1,6 +1,9 @@
 *.suo
-packages/*
-Site/bin/*
-Site/Content/*
-Site/obj/*
+*.user
 .vs/
+*/bin/
+*/obj/
+src/build/
+src/node_modules/
+src/websharper.log
+dist/

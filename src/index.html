@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WebSharper Babylon.js</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' rx='3' fill='%234f46e5'/%3E%3Cpath d='M8 2 14 5.5v5L8 14 2 10.5v-5z' fill='white'/%3E%3C/svg%3E" />
+    <script>
+        // Apply a previously chosen theme before first paint. Light is the
+        // default; the key is shared with Client.fs (themeStorageKey).
+        try {
+            var t = localStorage.getItem('websharper-babylonjs-theme');
+            if (t === 'dark' || t === 'light') document.documentElement.setAttribute('data-theme', t);
+        } catch (e) { }
+    </script>
+    <link rel="stylesheet" href="site.css" />
+    <!-- @babylonjs/core is bundled from the npm package; the WebSharper head is folded in here. -->
+    <!-- ws-head -->
+</head>
+<body>
+    <header class="app-header">
+        <div class="app-titles">
+            <h1>Babylon.js</h1>
+            <p>A 3D scene with <a href="https://websharper.com">WebSharper</a></p>
+        </div>
+        <div class="app-actions">
+            <button class="btn theme-toggle" ws-onclick="ToggleTheme" title="Switch between the light and dark theme">
+                <span>${themeLabel}</span>
+            </button>
+            <a class="app-source" href="https://github.com/websharper-samples/BabylonJS">Source</a>
+        </div>
+    </header>
+
+    <main class="page">
+        <div class="viewport-column">
+            <section class="viewport-card">
+                <canvas id="scene" class="scene"></canvas>
+                <div class="viewport-overlay">
+                    <span class="badge">${engineInfo}</span>
+                    <span class="badge">${fps}</span>
+                </div>
+                <p class="pick-hint">${pickInfo}</p>
+            </section>
+
+        <div class="left-cards">
+            <section class="card">
+                <header class="card-header">
+                    <h2>Dynamic texture</h2>
+                    <p>A <code>DynamicTexture</code> drawn through its <code>CanvasRenderingContext2D</code>.</p>
+                </header>
+                <div class="toolbar">
+                    <input class="text-input" type="text" ws-var="LabelText" placeholder="Label text" />
+                    <button class="btn btn-primary" ws-onclick="ApplyLabel">Apply label</button>
+                </div>
+            </section>
+            <section class="card">
+                <header class="card-header">
+                    <h2>API tour</h2>
+                    <p>Values computed with <code>Vector3</code>, <code>Color3</code>, <code>Matrix</code> and <code>Quaternion</code>.</p>
+                </header>
+                <button class="btn" ws-onclick="ReadApi">Compute</button>
+                <p class="readout">${mathInfo}</p>
+            </section>
+        </div>
+        </div>
+
+        <aside class="panel">
+            <p class="notice">${notice}</p>
+
+            <section class="card">
+                <header class="card-header">
+                    <h2>Camera</h2>
+                    <p>An <code>ArcRotateCamera</code> orbiting a target, attached to the canvas.</p>
+                </header>
+                <div class="toolbar">
+                    <button class="btn btn-primary" ws-onclick="ResetView">Reset view</button>
+                    <button class="btn" ws-onclick="OrbitIn">Zoom in</button>
+                    <button class="btn" ws-onclick="OrbitOut">Zoom out</button>
+                </div>
+                <div class="toolbar">
+                    <button class="btn" ws-onclick="ViewFront">Front</button>
+                    <button class="btn" ws-onclick="ViewSide">Side</button>
+                    <button class="btn" ws-onclick="ViewTop">Top</button>
+                    <button class="btn" ws-onclick="ToggleOrbit">${orbitLabel}</button>
+                </div>
+                <p class="readout">${cameraInfo}</p>
+            </section>
+
+            <section class="card">
+                <header class="card-header">
+                    <h2>Lights &amp; shadows</h2>
+                    <p>A <code>HemisphericLight</code> + a <code>DirectionalLight</code> with a <code>ShadowGenerator</code>.</p>
+                </header>
+                <div class="toolbar">
+                    <button class="btn" ws-onclick="Brighter">Brighter</button>
+                    <button class="btn" ws-onclick="Dimmer">Dimmer</button>
+                    <button class="btn" ws-onclick="WarmLight">Warm</button>
+                    <button class="btn" ws-onclick="CoolLight">Cool</button>
+                </div>
+                <div class="toolbar">
+                    <button class="btn" ws-onclick="ToggleDirectional">${directionalLabel}</button>
+                    <button class="btn" ws-onclick="ToggleShadows">${shadowLabel}</button>
+                </div>
+                <p class="readout">${lightInfo}</p>
+            </section>
+
+            <section class="card">
+                <header class="card-header">
+                    <h2>Materials &amp; glow</h2>
+                    <p><code>StandardMaterial</code> colours, alpha, wireframe and a <code>GlowLayer</code>.</p>
+                </header>
+                <div class="toolbar">
+                    <button class="btn" ws-onclick="CyclePalette">Cycle palette</button>
+                    <button class="btn" ws-onclick="ToggleWireframe">${wireframeLabel}</button>
+                    <button class="btn" ws-onclick="ToggleAlpha">${alphaLabel}</button>
+                    <button class="btn" ws-onclick="ToggleGlow">${glowLabel}</button>
+                </div>
+                <p class="readout">${materialInfo}</p>
+            </section>
+
+            <section class="card">
+                <header class="card-header">
+                    <h2>Shapes</h2>
+                    <p><code>MeshBuilder</code> factories for boxes, spheres, grounds, tubes, lathes, ribbons, lines and more.</p>
+                </header>
+                <div class="toolbar">
+                    <button class="btn btn-primary" ws-onclick="AddBox">Add box</button>
+                    <button class="btn" ws-onclick="AddSphere">Add sphere</button>
+                    <button class="btn" ws-onclick="AddTorus">Add torus knot</button>
+                    <button class="btn" ws-onclick="RemoveLast">Remove last</button>
+                </div>
+                <div class="toolbar">
+                    <button class="btn" ws-onclick="TogglePause">${pauseLabel}</button>
+                    <button class="btn" ws-onclick="ResetScene">Reset scene</button>
+                </div>
+                <p class="readout">${sceneInfo}</p>
+            </section>
+
+
+        </aside>
+    </main>
+
+    <p class="status-bar">${status}</p>
+
+    <script type="text/javascript" src="Scripts/BabylonJS.min.js"></script>
+</body>
+</html>
